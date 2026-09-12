@@ -1,0 +1,66 @@
+name: Argentina Daily Intelligence
+
+on:
+  workflow_dispatch:
+    inputs:
+      send_email:
+        description: Enviar el resultado por correo
+        required: true
+        type: boolean
+        default: false
+  schedule:
+    # GitHub cron usa UTC. Se despierta una vez por hora y el script compara
+    # DAILY_SEND_HOUR contra TIME_ZONE, evitando editar el cron por cambios de hora.
+    - cron: "7 * * * *"
+
+concurrency:
+  group: argentina-daily-intelligence
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  generate-and-email:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+      TIME_ZONE: ${{ vars.TIME_ZONE || 'America/Argentina/Buenos_Aires' }}
+      DAILY_SEND_HOUR: ${{ vars.DAILY_SEND_HOUR || '8' }}
+      WINDOW_HOURS: ${{ vars.WINDOW_HOURS || '36' }}
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generar briefing programado y enviarlo
+        if: github.event_name == 'schedule'
+        run: python scripts/daily_briefing.py --scheduled --send
+
+      - name: Generar briefing manual
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          if [[ "${{ inputs.send_email }}" == "true" ]]; then
+            python scripts/daily_briefing.py --send
+          else
+            python scripts/daily_briefing.py
+          fi
+
+      - name: Guardar briefing como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: briefing-${{ github.run_id }}
+          path: output/*.json
+          if-no-files-found: ignore
+          retention-days: 30

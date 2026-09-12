@@ -1,0 +1,132 @@
+{
+  "agente": "argentina-daily-intelligence",
+  "fecha_briefing": "2026-08-21",
+  "version_contrato": "1.0",
+  "metadata_corrida": {
+    "fuentes_consultadas": [
+      "Infobae", "Bloomberg", "Página/12", "Canal26", "APFDigital",
+      "LA NACION", "Legislatura de Córdoba", "prensa.cba.gov.ar", "Cadena 3",
+      "Sociedad Rural de Tucumán", "LV12 Tucumán", "hoydia.com.ar", "El Cronista", "EscribiendoCine"
+    ],
+    "fuentes_fallidas": [],
+    "ventana_temporal_horas": 36,
+    "noticias_evaluadas_total": 13,
+    "noticias_incluidas": 7,
+    "noticias_descartadas": [
+      { "tema": "Inversiones de empresarios (Secco, Torasso, Crunch Snack) recibidas por Acevedo en Tucumán", "motivo_descarte": "publicado el 12/08, fuera de la ventana de 24-36 horas" },
+      { "tema": "Caída de ventas minoristas en julio (-2,7% acumulado)", "motivo_descarte": "dato de julio publicado el 9/08, fuera de ventana; se prioriza informacion mas reciente" },
+      { "tema": "Interés de mineras (Ganfeng, Lithium Argentina) en litio por US$4.700M", "motivo_descarte": "no se pudo confirmar fecha de publicación exacta del artículo dentro de la ventana" },
+      { "tema": "Clima, deportes y agenda social en Santiago del Estero (único material encontrado hoy para la provincia)", "motivo_descarte": "sin impacto económico/empresarial; no se fuerza cobertura de la provincia sin novedad relevante" },
+      { "tema": "Foro de Inversiones Córdoba 2026 (edición completa)", "motivo_descarte": "el evento principal fue el 30-31/07, fuera de ventana; se prioriza en su lugar la actividad más reciente derivada (Mesa de Inversiones del 19/08)" },
+      { "tema": "Congreso Argentino de Forrajes - declaraciones sobre demanda de carne y leche", "motivo_descarte": "mencion agregada sin URL de articulo especifico verificable" }
+    ],
+    "grupos_duplicados": [
+      {
+        "tema": "Marcha de los Endeudados hacia el Ministerio de Economía",
+        "fuentes_agrupadas": ["Infobae", "Página/12", "Canal26", "APFDigital"],
+        "fuente_principal_elegida": "Infobae"
+      }
+    ]
+  },
+  "resumen_ejecutivo": "Jornada con señales económicas mixtas: el riesgo país cayó a la zona de 500 puntos en una rueda favorable para los mercados, mientras la actividad económica (EMAE) de junio sorprendió al alza. En paralelo, la CGT, las CTA y la UTEP marcharon al Ministerio de Economía reclamando por el sobreendeudamiento de casi 6 millones de familias y pidiendo un programa de refinanciación y auxilio a PyMEs, evidenciando la tensión entre los indicadores macro y la situación de los hogares. En el plano empresarial, Prime Video anunció una inversión regional de más de US$2.000 millones que incluye a la Argentina. A nivel provincial, Córdoba mostró la mayor actividad: una inversión de US$20 millones en una planta de nutrición animal y una nueva mesa de inversiones internacionales impulsada por el gobierno provincial. Tucumán tuvo agenda agroindustrial con el inicio de la Expo AgroSur 2026. Santiago del Estero no registró novedades económicas o empresariales relevantes en esta corrida.",
+  "noticias": [
+    {
+      "id": "2026-08-21-01",
+      "titulo": "El riesgo país argentino baja un 5% y se acerca a los 500 puntos",
+      "fuente": "Infobae",
+      "url": "https://www.infobae.com/economia/2026/08/21/el-riesgo-pais-argentino-baja-un-5-y-se-acerca-a-los-500-puntos-en-un-dia-favorable-para-los-mercados/",
+      "fecha_publicacion": "2026-08-21",
+      "categoria": "Economía",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "El riesgo país cayó 29 unidades (-5,4%) hasta 506 puntos básicos, en una jornada favorable para los activos argentinos.",
+      "por_que_importa": "Una baja sostenida del riesgo país reduce el costo de financiamiento externo para el Estado y las empresas, y suele leerse como mejora de expectativas de mercado.",
+      "score_relevancia": 78
+    },
+    {
+      "id": "2026-08-21-02",
+      "titulo": "La actividad económica de Argentina creció más de lo esperado en junio",
+      "fuente": "Bloomberg",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/argentina-s-economy-expanded-faster-than-expected-in-june?srnd=homepage-americas",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Economía",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "El estimador mensual de actividad económica (EMAE) de junio subió 0,8% mensual y 2,7% interanual, aunque el promedio del segundo trimestre quedó 0,9% por debajo del trimestre previo.",
+      "por_que_importa": "Confirma una recuperación de la actividad más fuerte que la esperada por el consenso, dato clave para expectativas de crecimiento de corto plazo.",
+      "score_relevancia": 72
+    },
+    {
+      "id": "2026-08-21-03",
+      "titulo": "La CGT y las CTA marcharon al Ministerio de Economía por las familias endeudadas y reclamaron un programa de refinanciación",
+      "fuente": "Infobae",
+      "url": "https://www.infobae.com/politica/2026/08/20/marcha-de-los-endeudados-en-vivo-las-ultimas-noticias-de-la-movilizacion-de-la-cgt-y-organizaciones-sociales/",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "PyMEs",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": ["Página/12", "Canal26", "APFDigital"],
+      "resumen": "La CGT, las CTA, la UTEP y organizaciones sociales marcharon al Ministerio de Economía reclamando límites a las tasas de interés y un plan de refinanciación para familias y PyMEs. Según el BCRA, la mora en préstamos a hogares llegó a 12,7% en junio de 2026, contra 2,5% en octubre de 2024.",
+      "por_que_importa": "El deterioro de la mora de crédito a hogares y el reclamo explícito de auxilio a PyMEs es una señal de estrés financiero que puede derivar en presión política por nuevas regulaciones al crédito y las tasas.",
+      "score_relevancia": 75
+    },
+    {
+      "id": "2026-08-21-04",
+      "titulo": "Prime Video invertirá más de US$2.000 millones en Latinoamérica, incluida la Argentina",
+      "fuente": "EscribiendoCine",
+      "url": "https://www.escribiendocine.com/noticias/2026/08/20/24502-prime-video-invertira-mas-de-us-2000-millones-en-latinoamerica-y-prepara-nuevas-producciones-argentinas",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Empresas",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Prime Video anunció una inversión superior a US$2.000 millones entre 2027 y 2030 para producción audiovisual y derechos deportivos en Argentina, México, Brasil, Colombia y Chile.",
+      "por_que_importa": "Inversión relevante en un sector de servicios/contenidos con potencial de generar empleo calificado y actividad para la industria audiovisual local.",
+      "score_relevancia": 54
+    },
+    {
+      "id": "2026-08-21-05",
+      "titulo": "Una empresa de nutrición animal invirtió US$20 millones en una planta cerca del aeropuerto de Córdoba",
+      "fuente": "LA NACION",
+      "url": "https://www.lanacion.com.ar/economia/campo/invirtieron-us20-millones-en-una-planta-para-producir-tres-veces-mas-de-lo-que-venden-nid19082026/",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Empresas",
+      "region": "Córdoba",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "La empresa Biofarma completó una planta de 17.000 m² con capacidad para producir hasta 20.000 toneladas mensuales de nutrición animal, con una inversión de US$20 millones.",
+      "por_que_importa": "Ampliación de capacidad productiva con foco exportador en la cadena de nutrición animal, con impacto directo en la cadena agroindustrial cordobesa.",
+      "score_relevancia": 62
+    },
+    {
+      "id": "2026-08-21-06",
+      "titulo": "Córdoba fortalece su vínculo internacional para atraer inversiones",
+      "fuente": "Legislatura de la Provincia de Córdoba",
+      "url": "https://legislaturacba.gob.ar/cordoba-fortalece-su-vinculo-con-el-mundo-para-atraer-inversiones-y-generar-nuevas-oportunidades/",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Política",
+      "region": "Córdoba",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "La vicegobernadora Myrian Prunotto encabezó en Buenos Aires una Mesa de Inversiones y Alianzas Estratégicas para fortalecer la vinculación internacional de Córdoba y generar nuevas oportunidades de inversión.",
+      "por_que_importa": "Política provincial con objetivo económico explícito: atraer inversión extranjera, en línea con el fondo tecnológico y los beneficios impositivos ya anunciados por la provincia.",
+      "score_relevancia": 51
+    },
+    {
+      "id": "2026-08-21-07",
+      "titulo": "Comenzó la Expo AgroSur 2026 en Concepción, Tucumán",
+      "fuente": "Sociedad Rural de Tucumán",
+      "url": "https://www.srt.org.ar/se-presento-oficialmente-expo-agrosur-2026-en-concepcion/",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Agro",
+      "region": "Tucumán",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Se realiza del 20 al 22 de agosto la Expo AgroSur 2026 en el predio Marcial Córdoba de Concepción, con maquinaria agrícola, AgTech, y una rueda de negocios para el sector agropecuario tucumano.",
+      "por_que_importa": "Punto de encuentro comercial para el agro regional, con potencial de generar negocios y adopción de tecnología agrícola en la provincia.",
+      "score_relevancia": 48
+    }
+  ]
+}

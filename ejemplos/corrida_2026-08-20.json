@@ -1,0 +1,165 @@
+{
+  "aviso": "EJEMPLO ILUSTRATIVO. Todas las noticias, fuentes, URLs y cifras de este archivo son ficticias. Sirve solo para mostrar el formato de salida del contrato, no representa hechos reales.",
+  "agente": "argentina-daily-intelligence",
+  "fecha_briefing": "2026-08-20",
+  "version_contrato": "1.0",
+  "metadata_corrida": {
+    "fuentes_consultadas": [
+      "Diario Nacional Ejemplo",
+      "Ámbito Ficticio",
+      "La Voz de Córdoba (ejemplo)",
+      "La Gaceta de Tucumán (ejemplo)",
+      "El Liberal de Santiago (ejemplo)",
+      "BCRA - Comunicados (ejemplo)"
+    ],
+    "fuentes_fallidas": [
+      { "fuente": "Portal Provincial Santiagueño (ejemplo)", "motivo": "timeout al recuperar la página, no respondió en 3 intentos" }
+    ],
+    "ventana_temporal_horas": 36,
+    "noticias_evaluadas_total": 14,
+    "noticias_incluidas": 9,
+    "noticias_descartadas": [
+      { "tema": "Declaración cruzada entre dos legisladores sin efecto regulatorio", "motivo_descarte": "política de color, sin consecuencia económica/empresarial identificable" },
+      { "tema": "Rumor de renuncia de un funcionario de segunda línea", "motivo_descarte": "no confirmado por ninguna fuente, se descarta por no poder verificarse" },
+      { "tema": "Nota de color sobre evento social empresarial en Tucumán", "motivo_descarte": "sin impacto económico relevante" },
+      { "tema": "Cobertura menor de Santiago del Estero sin dato adicional", "motivo_descarte": "no llegó al umbral de relevancia del día" },
+      { "tema": "Actualización menor de precios sin variación significativa", "motivo_descarte": "magnitud insuficiente para el briefing ejecutivo" }
+    ],
+    "grupos_duplicados": [
+      {
+        "tema": "Anuncio de nueva línea de crédito para PyMEs exportadoras",
+        "fuentes_agrupadas": ["Diario Nacional Ejemplo", "Ámbito Ficticio", "Agencia Económica Ejemplo"],
+        "fuente_principal_elegida": "Diario Nacional Ejemplo"
+      }
+    ]
+  },
+  "resumen_ejecutivo": "La agenda del día estuvo marcada por el anuncio de una nueva línea de crédito para PyMEs exportadoras y por señales del BCRA sobre la política de encajes, ambos con impacto directo en el financiamiento de empresas. En el plano provincial, Córdoba mostró actividad relevante en inversión industrial, mientras que Tucumán reportó novedades en el sector agroindustrial. Santiago del Estero no presentó hechos que superaran el umbral de relevancia en esta corrida. La política nacional se mantuvo relativamente tranquila, sin definiciones regulatorias de peso más allá de lo económico ya mencionado.",
+  "noticias": [
+    {
+      "id": "2026-08-20-01",
+      "titulo": "Gobierno lanza línea de crédito para PyMEs exportadoras",
+      "fuente": "Diario Nacional Ejemplo",
+      "url": "https://ejemplo-diario-nacional.test/economia/linea-credito-pymes-exportadoras",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "PyMEs",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": ["Ámbito Ficticio", "Agencia Económica Ejemplo"],
+      "resumen": "El Ministerio de Economía anunció una línea de crédito a tasa subsidiada destinada a PyMEs exportadoras, con un cupo inicial estimado y ventanilla de inscripción abierta desde la próxima semana.",
+      "por_que_importa": "Mejora directamente el acceso a financiamiento de un segmento con restricciones crónicas de crédito, con potencial de sostener o aumentar exportaciones de PyMEs en los próximos meses.",
+      "score_relevancia": 82
+    },
+    {
+      "id": "2026-08-20-02",
+      "titulo": "BCRA evalúa ajustar encajes para bancos con alta exposición a crédito productivo",
+      "fuente": "BCRA - Comunicados (ejemplo)",
+      "url": "https://ejemplo-bcra.test/comunicados/encajes-credito-productivo",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Economía",
+      "region": "Argentina",
+      "tipo_evidencia": "declaracion",
+      "fuentes_contrastadas": [],
+      "resumen": "El BCRA comunicó que está evaluando modificaciones en la exigencia de encajes para bancos que incrementen su cartera de crédito productivo, sin precisar aún cronograma ni magnitud.",
+      "por_que_importa": "De confirmarse, podría liberar liquidez bancaria hacia crédito a empresas, un canal relevante para inversión productiva en el corto plazo.",
+      "score_relevancia": 74
+    },
+    {
+      "id": "2026-08-20-03",
+      "titulo": "Empresa autopartista anuncia ampliación de planta en Córdoba",
+      "fuente": "La Voz de Córdoba (ejemplo)",
+      "url": "https://ejemplo-lavozcba.test/economia/ampliacion-planta-autopartista",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Empresas",
+      "region": "Córdoba",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Una autopartista con planta en la provincia confirmó una inversión para ampliar su capacidad productiva, con creación de puestos de trabajo estimada para el próximo semestre.",
+      "por_que_importa": "Señal de inversión industrial sostenida en la provincia, con efecto de arrastre esperado sobre proveedores locales y empleo.",
+      "score_relevancia": 68
+    },
+    {
+      "id": "2026-08-20-04",
+      "titulo": "Cooperativa agroindustrial tucumana exporta nuevo lote a mercado asiático",
+      "fuente": "La Gaceta de Tucumán (ejemplo)",
+      "url": "https://ejemplo-lagaceta.test/economia/exportacion-cooperativa-tucuman",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Agro",
+      "region": "Tucumán",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Una cooperativa agroindustrial de la provincia concretó el envío de un nuevo lote de producción a un mercado asiático, ampliando su cartera de destinos de exportación.",
+      "por_que_importa": "Diversificación de mercados de exportación para el sector agroindustrial provincial, relevante para la sostenibilidad del negocio ante shocks de demanda puntuales.",
+      "score_relevancia": 61
+    },
+    {
+      "id": "2026-08-20-05",
+      "titulo": "Cámara empresarial advierte sobre atraso en pagos de organismos provinciales",
+      "fuente": "Ámbito Ficticio",
+      "url": "https://ejemplo-ambito.test/empresas/atraso-pagos-organismos-provinciales",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "PyMEs",
+      "region": "Argentina",
+      "tipo_evidencia": "declaracion",
+      "fuentes_contrastadas": [],
+      "resumen": "Una cámara empresarial señaló demoras en pagos de organismos provinciales a proveedores PyME, sin especificar aún montos totales adeudados.",
+      "por_que_importa": "Los atrasos en pagos del sector público afectan directamente el capital de trabajo de PyMEs proveedoras, con riesgo de tensión financiera si se prolongan.",
+      "score_relevancia": 58
+    },
+    {
+      "id": "2026-08-20-06",
+      "titulo": "Consumo minorista muestra señales mixtas en la primera quincena",
+      "fuente": "Agencia Económica Ejemplo",
+      "url": "https://ejemplo-agencia-economica.test/consumo/senales-mixtas-quincena",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Consumo",
+      "region": "Argentina",
+      "tipo_evidencia": "analisis",
+      "fuentes_contrastadas": [],
+      "resumen": "Un relevamiento privado mostró comportamiento dispar del consumo minorista según rubro, con alimentos estables y bienes durables más débiles.",
+      "por_que_importa": "Da una lectura temprana de la salud del consumo antes de datos oficiales, relevante para expectativas de ventas de empresas de consumo masivo.",
+      "score_relevancia": 55
+    },
+    {
+      "id": "2026-08-20-07",
+      "titulo": "Legislatura provincial cordobesa debate régimen de promoción industrial",
+      "fuente": "La Voz de Córdoba (ejemplo)",
+      "url": "https://ejemplo-lavozcba.test/politica/regimen-promocion-industrial",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Política",
+      "region": "Córdoba",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "La legislatura provincial comenzó a debatir un proyecto de régimen de promoción industrial con beneficios impositivos para nuevas inversiones.",
+      "por_que_importa": "Política local con consecuencia económica directa: de aprobarse, podría atraer inversión industrial adicional a la provincia.",
+      "score_relevancia": 63
+    },
+    {
+      "id": "2026-08-20-08",
+      "titulo": "Sector agropecuario santiagueño reporta buena campaña de algodón",
+      "fuente": "El Liberal de Santiago (ejemplo)",
+      "url": "https://ejemplo-elliberal.test/agro/campana-algodon",
+      "fecha_publicacion": "2026-08-18",
+      "categoria": "Agro",
+      "region": "Santiago del Estero",
+      "tipo_evidencia": "declaracion",
+      "fuentes_contrastadas": [],
+      "resumen": "Productores locales reportaron una campaña de algodón por encima del promedio de las últimas temporadas, aunque los datos oficiales de rendimiento aún no se publicaron.",
+      "por_que_importa": "Impacto directo en la economía provincial y en la cadena textil regional si el dato se confirma con estadísticas oficiales.",
+      "score_relevancia": 52
+    },
+    {
+      "id": "2026-08-20-09",
+      "titulo": "Índice de confianza empresarial se mantiene estable en agosto",
+      "fuente": "Agencia Económica Ejemplo",
+      "url": "https://ejemplo-agencia-economica.test/economia/indice-confianza-empresarial-agosto",
+      "fecha_publicacion": "2026-08-19",
+      "categoria": "Economía",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Un índice privado de confianza empresarial se mantuvo estable respecto al mes anterior, sin variaciones significativas por sector.",
+      "por_que_importa": "Sirve como termómetro de expectativas de inversión de corto plazo; la estabilidad sugiere ausencia de sorpresas negativas relevantes en el mes.",
+      "score_relevancia": 47
+    }
+  ]
+}

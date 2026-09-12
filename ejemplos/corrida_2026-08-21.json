@@ -1,0 +1,121 @@
+{
+  "aviso": "EJEMPLO ILUSTRATIVO. Todas las noticias, fuentes, URLs y cifras de este archivo son ficticias. Sirve solo para mostrar el formato de salida del contrato, no representa hechos reales.",
+  "agente": "argentina-daily-intelligence",
+  "fecha_briefing": "2026-08-21",
+  "version_contrato": "1.0",
+  "metadata_corrida": {
+    "fuentes_consultadas": [
+      "Diario Nacional Ejemplo",
+      "Ámbito Ficticio",
+      "La Voz de Córdoba (ejemplo)",
+      "La Gaceta de Tucumán (ejemplo)",
+      "El Liberal de Santiago (ejemplo)",
+      "BCRA - Comunicados (ejemplo)"
+    ],
+    "fuentes_fallidas": [],
+    "ventana_temporal_horas": 36,
+    "noticias_evaluadas_total": 11,
+    "noticias_incluidas": 6,
+    "noticias_descartadas": [
+      { "tema": "Cruce verbal entre dos dirigentes sobre un tema sin efecto de política pública", "motivo_descarte": "entretenimiento político, sin consecuencia económica/empresarial" },
+      { "tema": "Nota de color sobre feria comercial en Tucumán", "motivo_descarte": "sin impacto económico medible" },
+      { "tema": "Rumor sobre posible cambio de gabinete", "motivo_descarte": "no confirmado por ninguna fuente consultada" },
+      { "tema": "Cobertura de Santiago del Estero sin novedad sustantiva respecto al día anterior", "motivo_descarte": "no superó el umbral de relevancia; no se fuerza cobertura solo por completar la provincia" },
+      { "tema": "Variación menor de un índice sectorial", "motivo_descarte": "magnitud insuficiente" }
+    ],
+    "grupos_duplicados": [
+      {
+        "tema": "Dato de inflación mayorista de julio",
+        "fuentes_agrupadas": ["Diario Nacional Ejemplo", "Ámbito Ficticio"],
+        "fuente_principal_elegida": "Ámbito Ficticio"
+      }
+    ]
+  },
+  "resumen_ejecutivo": "Jornada más tranquila que la anterior, con menos noticias que superaron el umbral de relevancia: 6 contra 9 el día previo, y sin novedades en Santiago del Estero. El dato saliente fue la publicación de la inflación mayorista de julio, con lectura relevante para expectativas de costos empresariales. En Córdoba se destacó un acuerdo comercial entre una pyme tecnológica y un cliente del exterior, y en Tucumán continuó la agenda agroindustrial con una inversión en logística. No hubo definiciones regulatorias de peso a nivel nacional.",
+  "noticias": [
+    {
+      "id": "2026-08-21-01",
+      "titulo": "Inflación mayorista de julio se ubicó por debajo de lo esperado",
+      "fuente": "Ámbito Ficticio",
+      "url": "https://ejemplo-ambito.test/economia/inflacion-mayorista-julio",
+      "fecha_publicacion": "2026-08-21",
+      "categoria": "Economía",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": ["Diario Nacional Ejemplo"],
+      "resumen": "El índice de precios mayoristas de julio se ubicó por debajo de las proyecciones privadas, según el dato oficial difundido hoy.",
+      "por_que_importa": "Una sorpresa a la baja en precios mayoristas suele anticipar menor presión en precios minoristas los meses siguientes, relevante para planificación de costos empresariales.",
+      "score_relevancia": 77
+    },
+    {
+      "id": "2026-08-21-02",
+      "titulo": "PyME tecnológica cordobesa cierra contrato de exportación de software",
+      "fuente": "La Voz de Córdoba (ejemplo)",
+      "url": "https://ejemplo-lavozcba.test/empresas/pyme-tecnologica-exportacion-software",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "PyMEs",
+      "region": "Córdoba",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Una PyME de desarrollo de software con sede en la provincia firmó un contrato de exportación de servicios con un cliente del exterior.",
+      "por_que_importa": "Ejemplo concreto de generación de divisas por exportación de servicios basados en conocimiento, un sector con potencial de crecimiento para la economía provincial.",
+      "score_relevancia": 60
+    },
+    {
+      "id": "2026-08-21-03",
+      "titulo": "Empresa logística invierte en centro de acopio para agroindustria tucumana",
+      "fuente": "La Gaceta de Tucumán (ejemplo)",
+      "url": "https://ejemplo-lagaceta.test/economia/inversion-centro-acopio-agroindustria",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Agro",
+      "region": "Tucumán",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Una empresa de logística anunció la construcción de un centro de acopio destinado a mejorar la cadena de frío y almacenamiento para productores agroindustriales de la zona.",
+      "por_que_importa": "Mejora la infraestructura logística de la cadena agroindustrial provincial, con potencial de reducir mermas y costos de almacenamiento.",
+      "score_relevancia": 57
+    },
+    {
+      "id": "2026-08-21-04",
+      "titulo": "Gobierno nacional prorroga plazo de un régimen de facilidades de pago para PyMEs",
+      "fuente": "Diario Nacional Ejemplo",
+      "url": "https://ejemplo-diario-nacional.test/economia/prorroga-facilidades-pago-pymes",
+      "fecha_publicacion": "2026-08-21",
+      "categoria": "PyMEs",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "Se extendió por 30 días el plazo de adhesión a un régimen de facilidades de pago de obligaciones fiscales para PyMEs.",
+      "por_que_importa": "Da margen adicional a empresas con dificultades de liquidez para regularizar su situación fiscal sin recargos plenos.",
+      "score_relevancia": 54
+    },
+    {
+      "id": "2026-08-21-05",
+      "titulo": "Cámara de comercio advierte sobre suba de costos logísticos",
+      "fuente": "Agencia Económica Ejemplo",
+      "url": "https://ejemplo-agencia-economica.test/empresas/suba-costos-logisticos",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Empresas",
+      "region": "Argentina",
+      "tipo_evidencia": "declaracion",
+      "fuentes_contrastadas": [],
+      "resumen": "Una cámara sectorial señaló un incremento en costos de transporte de carga en las últimas semanas, atribuido a factores puntuales de oferta.",
+      "por_que_importa": "El costo logístico afecta de forma transversal a empresas de consumo y agro; un incremento sostenido podría trasladarse a precios finales.",
+      "score_relevancia": 49
+    },
+    {
+      "id": "2026-08-21-06",
+      "titulo": "Consumo de combustibles se mantiene estable respecto a julio",
+      "fuente": "Ámbito Ficticio",
+      "url": "https://ejemplo-ambito.test/consumo/consumo-combustibles-agosto",
+      "fecha_publicacion": "2026-08-20",
+      "categoria": "Consumo",
+      "region": "Argentina",
+      "tipo_evidencia": "hecho_confirmado",
+      "fuentes_contrastadas": [],
+      "resumen": "El consumo de combustibles se mantuvo en niveles similares a julio, sin variaciones estacionales relevantes.",
+      "por_que_importa": "Sirve como proxy de actividad económica y movilidad; la estabilidad indica ausencia de cambios bruscos en la demanda.",
+      "score_relevancia": 41
+    }
+  ]
+}
