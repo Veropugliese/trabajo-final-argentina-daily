@@ -60,7 +60,7 @@ def scheduled_for_this_hour(now: datetime) -> bool:
 
 
 def build_user_prompt(now: datetime) -> str:
-    template = (ROOT / "user_prompt.md").read_text(encoding="utf-8")
+    template = (ROOT / "prompts" / "user_prompt.md").read_text(encoding="utf-8")
     date_argentina = now.strftime("%d/%m/%Y")
     template = template.replace("{{FECHA}}", date_argentina)
     template = template.replace("{{VENTANA_HORAS, default 36}}", env("WINDOW_HOURS", "36"))
@@ -73,8 +73,8 @@ def build_user_prompt(now: datetime) -> str:
 
 def request_briefing(now: datetime) -> dict[str, Any]:
     api_key = env("GEMINI_API_KEY", required=True)
-    model = env("GEMINI_MODEL", "gemini-2.5-flash")
-    system_prompt = (ROOT / "system_prompt.md").read_text(encoding="utf-8")
+    model = env("GEMINI_MODEL", "gemini-3.1-flash-lite")
+    system_prompt = (ROOT / "prompts" / "system_prompt.md").read_text(encoding="utf-8")
     payload = {
         "systemInstruction": {"parts": [{"text": system_prompt}]},
         "contents": [
