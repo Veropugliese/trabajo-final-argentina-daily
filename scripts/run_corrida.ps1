@@ -8,7 +8,7 @@
   googleSearch) a mano en PowerShell. Nunca imprime la API key.
 
 .PARAMETER Modelo
-  Modelo de Gemini a usar (default: gemini-2.5-flash).
+  Modelo de Gemini a usar (default: gemini-3.1-flash-lite, el que usa el contrato).
 
 .PARAMETER Fecha
   Fecha del briefing en formato DD/MM/YYYY (default: hoy).
@@ -21,7 +21,7 @@
 #>
 
 param(
-    [string]$Modelo = "gemini-2.5-flash",
+    [string]$Modelo = "gemini-3.1-flash-lite",
     [string]$Fecha = (Get-Date -Format "dd/MM/yyyy"),
     [int]$VentanaHoras = 36,
     [Parameter(Mandatory = $true)][string]$Etiqueta,
