@@ -19,8 +19,9 @@ Tokens medidos directamente de `usageMetadata` de la respuesta de Gemini en cada
 |---|---|---|---|---|
 | `2026-09-13_1.md` | gemini-3.1-flash-lite | 4.267 | 1.588 | USD 0,00345 |
 | `2026-09-13_2.md` | gemini-3.1-flash-lite | 4.281 | 2.119 | USD 0,00425 |
-| **Promedio (flash-lite)** | | **4.274** | **1.854** | **USD 0,00385** |
-| `2026-09-13_comparacion-flash.md` | gemini-3.6-flash | 4.281 | 2.661 | USD 0,01319 |
+| `2026-09-13_3.md` | gemini-3.1-flash-lite | 3.894 | 1.561 | USD 0,00331 |
+| **Promedio (flash-lite, 3 corridas)** | | **4.147** | **1.756** | **USD 0,00367** |
+| `2026-09-13_comparacion-flash.md` (extra, no cuenta en el promedio) | gemini-3.6-flash | 4.281 | 2.661 | USD 0,01319 |
 
 Fórmula: `costo = (tokens_entrada / 1.000.000 × precio_entrada) + (tokens_salida / 1.000.000 × precio_salida)`.
 
@@ -30,12 +31,12 @@ Con una corrida por día, el grounding de Google Search entra dentro de la cuota
 
 ## Proyección a escala
 
-Supuesto de volumen: **1 corrida por día** (la cadencia declarada en `prompts/system_prompt.md`, sección 2), usando el promedio real de `gemini-3.1-flash-lite` (USD 0,00385/corrida):
+Supuesto de volumen: **1 corrida por día** (la cadencia declarada en `prompts/system_prompt.md`, sección 2), usando el promedio real de las 3 corridas con `gemini-3.1-flash-lite` (USD 0,00367/corrida):
 
 | Periodo | Corridas | Costo estimado (tarifa estándar, sin cuota gratis) |
 |---|---|---|
-| Semanal | 7 | USD 0,027 |
-| Anual | 365 | USD 1,41 |
+| Semanal | 7 | USD 0,026 |
+| Anual | 365 | USD 1,34 |
 
 Si además se agrega el envío por correo (SMTP de Gmail, sin costo) y se supera la cuota gratuita de grounding, sumar USD 14 cada 1.000 corridas extra — a 1 corrida/día eso tardaría más de 13 años en superarse, así que no es un factor relevante a esta escala.
 
