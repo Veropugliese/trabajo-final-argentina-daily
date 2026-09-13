@@ -70,7 +70,7 @@ Este documento cuenta cómo llegó el sistema a su forma actual: qué se probó,
 
 **Qué se cambió:** el contrato ya preveía este escenario — `user_prompt.md` tiene una "Opción B: sin herramientas, con material provisto" pensada exactamente para cuando no hay búsqueda activa. Se usó esa opción: la búsqueda la hice yo por fuera (con mis propias herramientas de navegación), armé el material recolectado con título, medio, URL, fecha y extracto de cada artículo real, y se lo pasé al contrato para que hiciera el trabajo agéntico real (clasificar, puntuar, descartar, deduplicar) sobre datos reales. `scripts/run_corrida.ps1` quedó con un flag `-MaterialFile` para soportar este modo sin tocar el contrato. La cuota de Google sigue siendo un problema pendiente para cuando el sistema tenga que correr solo todos los días — ver `GOBERNANZA-Y-RIESGO.md`, riesgo 5.
 
-**Resultado, ya con datos reales:** las corridas en `corridas/` muestran que el pipeline de decisión funciona con material real: en la corrida 1, descartó sola una noticia de Córdoba de 11 días de antigüedad citando la ventana de 36 horas como motivo, sin que nadie se lo dijera explícitamente.
+**Resultado, ya con datos reales:** las corridas en `corridas/` muestran que el pipeline de decisión funciona con material real: en la corrida 1 incluí a propósito una noticia de Córdoba de 11 días de antigüedad, con una nota que planteaba la duda sin resolverla ("evaluar si corresponde incluirla... o descartarla por antigüedad"). El pipeline resolvió esa duda solo, aplicando su propia regla de ventana de 36 horas, y la descartó citando exactamente ese motivo — sin que la nota le dijera qué hacer, solo que había algo para decidir.
 
 ## Iteración 5 — la comparación de modelos expuso una alucinación
 
