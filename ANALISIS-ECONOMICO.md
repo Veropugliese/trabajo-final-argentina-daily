@@ -1,49 +1,59 @@
 # Análisis económico
 
-## Precio del modelo
+## Precio de los modelos
 
-Precios de la API de Gemini consultados en [ai.google.dev/gemini-api/docs/pricing](https://ai.google.dev/gemini-api/docs/pricing) el **12/09/2026**:
+Precios de la API de Gemini consultados en [ai.google.dev/gemini-api/docs/pricing](https://ai.google.dev/gemini-api/docs/pricing) el **13/09/2026** (tarifa estándar, sin cuota gratuita):
 
-| Modelo | Input (por 1M tokens) | Output (por 1M tokens) | Grounding con Google Search |
-|---|---|---|---|
-| **Gemini 2.5 Flash** (el que usa este agente) | USD 0,30 | USD 2,50 | Gratis hasta 500 solicitudes/día (compartido con Flash-Lite); luego USD 35 cada 1.000 |
-| Gemini 2.5 Pro | USD 1,25 (≤200k tokens de prompt) | USD 10,00 (≤200k tokens de prompt) | Gratis hasta 1.500 solicitudes/día; luego USD 35 cada 1.000 |
+| Modelo | Input (por 1M tokens) | Output (por 1M tokens) |
+|---|---|---|
+| **Gemini 3.1 Flash-Lite** (el que usa el contrato) | USD 0,25 | USD 1,50 |
+| Gemini 3.6 Flash (el modelo "grande" comparado) | USD 0,75 | USD 3,75 |
 
-Con una corrida por día, el uso real de este agente queda **dentro de la cuota gratuita** de Google Search grounding en cualquiera de los dos modelos — el costo real hoy es **USD 0**. Los cálculos de abajo muestran cuánto costaría igual, con precio de tarifa estándar (sin cuota gratuita), para poder proyectar qué pasa si el uso escala (más corridas por día, o un uso que consume la cuota gratuita de grounding).
+Grounding con Google Search: 5.000 solicitudes gratis por mes (compartidas entre modelos Gemini 3.x), luego USD 14 cada 1.000. En esta cuenta, esa cuota está en 0 hoy — ver `DECISIONES.md`, iteración 4 — así que el costo de grounding no se pudo medir con una corrida real; se documenta como pendiente.
 
-## Costo por corrida
+## Costo por corrida (datos reales)
 
-*(Se completa con los tokens reales que devuelve la API de Gemini en `usageMetadata` — `promptTokenCount` y `candidatesTokenCount` — de las tres corridas guardadas en `corridas/`.)*
+Tokens medidos directamente de `usageMetadata` de la respuesta de Gemini en cada corrida guardada en `corridas/`:
 
-| Corrida | Tokens de entrada | Tokens de salida | Costo a tarifa estándar |
-|---|---|---|---|
-| `corridas/<fecha-1>.md` | — | — | — |
-| `corridas/<fecha-2>.md` | — | — | — |
-| `corridas/<fecha-3>.md` | — | — | — |
-| **Promedio** | — | — | — |
+| Corrida | Modelo | Tokens entrada | Tokens salida | Costo (tarifa estándar) |
+|---|---|---|---|---|
+| `2026-09-13_1.md` | gemini-3.1-flash-lite | 4.267 | 1.588 | USD 0,00345 |
+| `2026-09-13_2.md` | gemini-3.1-flash-lite | 4.281 | 2.119 | USD 0,00425 |
+| **Promedio (flash-lite)** | | **4.274** | **1.854** | **USD 0,00385** |
+| `2026-09-13_comparacion-flash.md` | gemini-3.6-flash | 4.281 | 2.661 | USD 0,01319 |
 
-Fórmula: `costo = (tokens_entrada / 1.000.000 × 0,30) + (tokens_salida / 1.000.000 × 2,50)`, en dólares, a tarifa estándar de Gemini 2.5 Flash.
+Fórmula: `costo = (tokens_entrada / 1.000.000 × precio_entrada) + (tokens_salida / 1.000.000 × precio_salida)`.
+
+Ejemplo verificable con la corrida 1: `(4.267 / 1.000.000 × 0,25) + (1.588 / 1.000.000 × 1,50) = 0,0010668 + 0,002382 = USD 0,0034488`.
+
+Con una corrida por día, el grounding de Google Search entra dentro de la cuota gratuita (500-5.000 solicitudes/mes según el modelo) — el costo real de producción, una vez habilitada esa cuota, seguiría siendo prácticamente **USD 0** para este volumen. Los números de la tabla son a tarifa de pago completa, el escenario "peor caso" sin ningún beneficio de cuota gratuita.
 
 ## Proyección a escala
 
-Supuesto de volumen: **1 corrida por día** (la cadencia declarada en el contrato, sección 2 de `prompts/system_prompt.md`).
+Supuesto de volumen: **1 corrida por día** (la cadencia declarada en `prompts/system_prompt.md`, sección 2), usando el promedio real de `gemini-3.1-flash-lite` (USD 0,00385/corrida):
 
-- Por semana: 7 corridas × costo promedio por corrida.
-- Por año: 365 corridas × costo promedio por corrida.
-
-*(Los tres renglones de abajo se completan con el promedio de la tabla anterior.)*
-
-| Periodo | Corridas | Costo estimado (tarifa estándar) |
+| Periodo | Corridas | Costo estimado (tarifa estándar, sin cuota gratis) |
 |---|---|---|
-| Semanal | 7 | — |
-| Anual | 365 | — |
+| Semanal | 7 | USD 0,027 |
+| Anual | 365 | USD 1,41 |
 
-Estos números son el costo *como si no existiera cuota gratuita* — el peor caso, útil para decidir si el sistema sigue siendo viable si algún día se factura de verdad. El costo real actual, dentro de la cuota gratuita de grounding (hasta 500 solicitudes/día en Flash), es **USD 0** para este volumen de uso.
+Si además se agrega el envío por correo (SMTP de Gmail, sin costo) y se supera la cuota gratuita de grounding, sumar USD 14 cada 1.000 corridas extra — a 1 corrida/día eso tardaría más de 13 años en superarse, así que no es un factor relevante a esta escala.
 
-## Elección de modelo — Flash vs. Pro
+## Elección de modelo — con prueba real, no solo argumento de precio
 
 **Criterio del curso: el modelo más chico que hace bien la tarea.**
 
-Gemini 2.5 Flash cuesta **~4x menos en input y ~4x menos en output** que Gemini 2.5 Pro a tarifa estándar (USD 0,30 vs. USD 1,25 de entrada; USD 2,50 vs. USD 10,00 de salida), y comparte la misma herramienta de `googleSearch`.
+Se corrió exactamente el mismo material real (`corridas/material_recolectado_2.md`) con los dos modelos, y se comparan las salidas:
 
-*(Pendiente: correr la misma corrida real con Gemini 2.5 Pro para comparar contra el resultado de Flash y mostrar en qué se diferencian — cuántas noticias encuentra cada uno, si el filtrado de fuente-propia-verificable se respeta igual, si el schema sale idéntico. Esto se completa junto con las corridas oficiales en `corridas/` y se documenta acá con el resultado concreto de la comparación, no solo el argumento de precio.)*
+| | Gemini 3.1 Flash-Lite (chico) | Gemini 3.6 Flash (grande) |
+|---|---|---|
+| Costo de esta corrida | USD 0,00425 | USD 0,01319 (~3,1x más caro) |
+| Noticias incluidas | 6 | 6 |
+| `fuentes_consultadas` | 6 fuentes, **todas reales** (coinciden exactamente con el material provisto) | 8 fuentes — **2 inventadas** ("La Voz del Interior", "El Liberal"), que no existen en el material |
+| Validación de schema | OK | OK |
+
+El modelo grande no solo cuesta ~3 veces más: en esta prueba concreta **alucinó dos fuentes que no le di**, a pesar de que el material decía explícitamente que no había cobertura verificable para esas dos provincias. El modelo chico no inventó ninguna. Esto no es una preferencia genérica por lo barato — es evidencia directa de que, para esta tarea, el modelo grande fue *menos* confiable, no más. Por eso el contrato usa `gemini-3.1-flash-lite`. El detalle completo de este hallazgo está en `DECISIONES.md`, iteración 5.
+
+## Qué falta
+
+No se pudo medir el costo real de la búsqueda con `googleSearch` nativo de Gemini porque la cuota de grounding de esta cuenta está en 0 (ver `DECISIONES.md`). Cuando esa cuota se habilite, correspondería sumar el costo de grounding (gratis hasta 5.000/mes, después USD 14/1.000) a esta cuenta — a 1 corrida/día, sigue sin ser un costo relevante.

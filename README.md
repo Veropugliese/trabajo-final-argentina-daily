@@ -15,9 +15,10 @@ Este repositorio continúa un proyecto real que empezó en una entrega anterior 
 | [`prompts/system_prompt.md`](prompts/system_prompt.md) | El contrato: identidad, contexto, pipeline de decisión, restricciones, formato de salida y supervisión (L0–L4). Versión vigente (v3). |
 | [`prompts/user_prompt.md`](prompts/user_prompt.md) | Plantilla del pedido diario. |
 | [`prompts/iteraciones/`](prompts/iteraciones/) | Versiones anteriores del contrato (v1, v2), para comparar antes/después de cada iteración. |
-| [`corridas/`](corridas/) | Las corridas reales de este trabajo final: entrada, salida y fecha de cada ejecución. |
+| [`corridas/`](corridas/) | Las corridas reales de este trabajo final: entrada, salida y fecha de cada ejecución, más una corrida extra de comparación de modelos. |
 | [`ejemplos/`](ejemplos/) | Corridas anteriores (dos ficticias para mostrar el schema, una real generada con la v1, antes de las iteraciones — la que expuso los problemas que se corrigieron). |
-| [`scripts/daily_briefing.py`](scripts/daily_briefing.py) | El programa que ejecuta el contrato de verdad: llama a Gemini con Google Search, valida el JSON, genera el HTML y envía el correo. |
+| [`scripts/daily_briefing.py`](scripts/daily_briefing.py) | El programa pensado para producción: llama a Gemini con Google Search, valida el JSON, genera el HTML y envía el correo. Requiere Python (no instalado en la máquina donde se armó este trabajo final). |
+| [`scripts/run_corrida.ps1`](scripts/run_corrida.ps1) | El script que sí se usó para generar las corridas reales de `corridas/` en PowerShell, sin Python. Soporta búsqueda nativa de Gemini y, cuando esa cuota no está disponible (ver `DECISIONES.md`), un modo con material provisto a mano. |
 | [`tests/`](tests/) | Tests del script (parseo, validación de schema, armado del pedido a Gemini, envío de correo). |
 | [`.github/workflows/daily-briefing.yml`](.github/workflows/daily-briefing.yml) | Automatización: corre el script todos los días por cron y también a demanda. |
 | [`CONFIGURACION_GITHUB_ACTIONS.md`](CONFIGURACION_GITHUB_ACTIONS.md) | Cómo configurar los secretos y variables para que la automatización funcione. |
@@ -45,16 +46,17 @@ La supervisión está declarada en `prompts/system_prompt.md` §7 con el vocabul
 - El contrato cubre explícitamente las seis piezas pedidas, cada una en su propia sección numerada de `prompts/system_prompt.md`.
 - La salida es JSON con schema fijo — comparable campo a campo entre corridas (ver `corridas/`).
 - El pipeline de decisión es agéntico, no una redacción libre: el agente decide qué descarta (`noticias_descartadas`), qué agrupa como duplicado (`grupos_duplicados`) y qué fuentes falló, y lo deja registrado en la salida.
-- La herramienta es real: `scripts/daily_briefing.py` llama a la API de Gemini con `googleSearch` activo y **rechaza** la respuesta si el modelo no usó búsqueda real (`used_google_search`) — no puede fabricar un briefing sin buscar de verdad.
-- El sistema corre solo: GitHub Actions lo dispara todos los días (`cron: "7 * * * *"`, comparado contra la hora configurada) y también permite disparo manual para pruebas.
+- La herramienta es real: el contrato está diseñado para llamar a la API de Gemini con `googleSearch` activo y **rechazar** la respuesta si el modelo no usó búsqueda real (`used_google_search`) — no puede fabricar un briefing sin buscar de verdad. Las corridas oficiales de este trabajo final se hicieron con material recolectado por búsqueda web real hecha por fuera (la cuenta de Gemini usada no tiene la cuota de grounding habilitada todavía — ver `DECISIONES.md`), pero el pipeline agéntico (clasificar, puntuar, descartar, deduplicar) corrió igual sobre datos 100% reales, y la corrida 1 descartó sola una noticia de 11 días de antigüedad sin que se lo pidiera explícitamente.
+- El sistema está pensado para correr solo: GitHub Actions lo dispara todos los días (`cron: "7 * * * *"`, comparado contra la hora configurada) y también permite disparo manual para pruebas — hoy esa automatización específica está bloqueada por la cuota de Google, no por el diseño (ver `GOBERNANZA-Y-RIESGO.md`, riesgo 5).
 - Hay tests (`tests/test_daily_briefing.py`) que cubren el parseo de la respuesta de Gemini, la validación del schema, la detección de uso real de búsqueda, y el envío de correo.
 
 ## Qué falta o qué falló
 
+- **La cuota de `googleSearch` de Gemini no está habilitada en la cuenta usada para este trabajo final** — probado con dos API keys y cinco modelos distintos, mismo resultado (429, cuota de grounding en 0). Mientras eso no se resuelva, la automatización diaria de `scripts/daily_briefing.py` fallaría en producción. Las corridas de `corridas/` se hicieron con el modo de contingencia que el propio contrato ya preveía (material provisto a mano) — ver `DECISIONES.md`, iteración 4, y `GOBERNANZA-Y-RIESGO.md`, riesgo 5.
 - El Agente Global (semanal, geopolítica/mercados/tecnología) sigue fuera de alcance — decisión tomada desde la entrega anterior y sostenida acá para poder cerrar bien el análisis económico y de gobierno de un solo agente en el tiempo disponible.
 - No hay reintentos automáticos si Gemini devuelve un JSON inválido o si `googleSearch` no se dispara — el script corta la ejecución con un error legible (`RuntimeError`) y GitHub Actions lo reporta como corrida fallida, pero no reintenta solo. Ver `GOBERNANZA-Y-RIESGO.md`.
 - El envío por correo asume una sola casilla de destino (`EMAIL_TO`) de uso interno — no está pensado para reenvío directo a terceros sin revisión. Ver el detalle de este riesgo en `GOBERNANZA-Y-RIESGO.md`.
-- Ver `DECISIONES.md` para las fallas puntuales encontradas durante las corridas reales de este trabajo final y qué se hizo (o no se resolvió) con cada una.
+- Ver `DECISIONES.md` para las fallas puntuales encontradas durante las corridas reales de este trabajo final (incluido un bug de PowerShell y una alucinación de fuentes del modelo grande) y qué se hizo con cada una.
 
 ## Qué aprendí
 

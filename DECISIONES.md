@@ -40,6 +40,44 @@ Este documento cuenta cómo llegó el sistema a su forma actual: qué se probó,
 
 **Por qué:** el foco de la consigna era demostrar un contrato bien construido con salida estructurada y comparable, no la cantidad de agentes. Construir los dos a la vez hubiera diluido el tiempo disponible para hacer bien las cosas que este trabajo final exige de verdad: corridas reales, análisis económico defendible, y gobierno y riesgo pensado en serio — en vez de dos contratos superficiales.
 
-## Iteración 4 — corridas reales de este trabajo final
+## Iteración 4 — correr el contrato de verdad para este trabajo final
 
-*(Se completa después de ejecutar las tres corridas oficiales en `corridas/` con la v3 del contrato. Si alguna corrida real expone un problema nuevo, se documenta acá con el error textual tal cual salió, siguiendo el mismo formato de las iteraciones anteriores.)*
+**Cuándo:** 13/09/2026, madrugada — el día de la entrega.
+
+**Qué se probó:** ejecutar `prompts/system_prompt.md` + `prompts/user_prompt.md` de verdad contra la API de Gemini con `googleSearch` real, usando un script en PowerShell (`scripts/run_corrida.ps1`) porque esta máquina no tiene Python instalado.
+
+**Qué falló (tres problemas reales, en cadena):**
+
+1. **Bug de PowerShell 5.1.** El primer intento tiró esto tal cual:
+   ```
+   ConvertTo-Json : Se produjo una excepción de tipo 'System.OutOfMemoryException'.
+   En C:\Users\vero\Desktop\vero\trabajo-final\scripts\run_corrida.ps1: 62 Carácter: 5
+   + } | ConvertTo-Json -Depth 10 -Compress
+   ```
+   `ConvertTo-Json` en Windows PowerShell 5.1 tiene un bug conocido de rendimiento/memoria al escapar strings largos (el system prompt tiene varios miles de caracteres). No es un error del contrato, es del entorno de ejecución.
+
+2. **Modelos dados de baja para cuentas nuevas.** Con el JSON arreglado a mano, `gemini-2.5-flash` (el modelo original del contrato) devolvió:
+   ```
+   {"error":{"code":404,"message":"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash..."}}
+   ```
+   Lo mismo pasó después con `gemini-2.5-flash-lite`. Toda la familia 2.5 quedó inservible para esta cuenta.
+
+3. **Cuota de búsqueda en cero para la familia 3.x.** Cambiando a `gemini-3.6-flash` (como sugería el error anterior), la respuesta fue:
+   ```
+   {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details...","status":"RESOURCE_EXHAUSTED"}}
+   ```
+   Se confirmó con el panel de cuotas de Google (ai.dev/rate-limit) que la "Fundamentación de la búsqueda" (grounding) para toda la familia Gemini 3.x está en **0/0** en esta cuenta nueva — no es un límite que se gaste, es un límite que no está habilitado. Se probó con dos API keys distintas y cinco modelos (`gemini-3.6-flash`, `gemini-flash-latest`, `gemini-3.1-flash-lite`, entre otros): mismo resultado. Un llamado sin herramientas (`generateContent` puro, sin `googleSearch`) sí funcionó con la misma key, aislando el problema a la cuota de grounding específicamente, no a la cuenta en general ni a la key.
+
+**Qué se cambió:** el contrato ya preveía este escenario — `user_prompt.md` tiene una "Opción B: sin herramientas, con material provisto" pensada exactamente para cuando no hay búsqueda activa. Se usó esa opción: la búsqueda la hice yo por fuera (con mis propias herramientas de navegación), armé el material recolectado con título, medio, URL, fecha y extracto de cada artículo real, y se lo pasé al contrato para que hiciera el trabajo agéntico real (clasificar, puntuar, descartar, deduplicar) sobre datos reales. `scripts/run_corrida.ps1` quedó con un flag `-MaterialFile` para soportar este modo sin tocar el contrato. La cuota de Google sigue siendo un problema pendiente para cuando el sistema tenga que correr solo todos los días — ver `GOBERNANZA-Y-RIESGO.md`, riesgo 5.
+
+**Resultado, ya con datos reales:** las corridas en `corridas/` muestran que el pipeline de decisión funciona con material real: en la corrida 1, descartó sola una noticia de Córdoba de 11 días de antigüedad citando la ventana de 36 horas como motivo, sin que nadie se lo dijera explícitamente.
+
+## Iteración 5 — la comparación de modelos expuso una alucinación
+
+**Cuándo:** 13/09/2026, misma madrugada.
+
+**Qué se probó:** correr exactamente el mismo material recolectado (`corridas/material_recolectado_2.md`) con dos modelos distintos — `gemini-3.1-flash-lite` (chico) y `gemini-3.6-flash` (grande) — para poder justificar la elección de modelo con una prueba real, no solo con el argumento de precio (ver `ANALISIS-ECONOMICO.md`).
+
+**Qué falló:** el modelo grande (`gemini-3.6-flash`) devolvió, en `metadata_corrida.fuentes_consultadas`, dos medios que **no existen en el material provisto**: "La Voz del Interior (Córdoba)" y "El Liberal (Santiago del Estero)". El material que le pasé decía explícitamente "no se encontró material propio verificable para Córdoba ni Santiago del Estero" — el modelo grande inventó fuentes para esas provincias igual, aunque después, para las noticias en sí, no llegó a fabricar una noticia falsa (las dejó correctamente en `noticias_descartadas`). El modelo chico (`gemini-3.1-flash-lite`), con el mismo material, no inventó ninguna fuente: su lista de `fuentes_consultadas` coincide exactamente con los 6 medios reales del material.
+
+**Qué se cambió:** esto se convirtió en la evidencia central de `ANALISIS-ECONOMICO.md` para justificar `gemini-3.1-flash-lite` como el modelo del contrato: no es solo que sea ~3x más barato, es que en esta prueba concreta fue **más confiable** que el modelo grande, que alucinó. Es una falla real y no resuelta del modelo grande — no se investigó más a fondo por el tiempo disponible, pero queda documentada como razón concreta (no una preferencia genérica) para la elección de modelo.
